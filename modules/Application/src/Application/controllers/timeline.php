@@ -9,8 +9,9 @@ if(!isset($action))
 switch ($action)
 {
     case 'insert':
-        include_once 'forms/timelineForm.php';
-        include_once 'drawForm.php';
+        //echo getcwd();
+        include_once '../modules/Application/src/forms/timelineForm.php';
+        include_once '../modules/Application/src/drawForm.php';
         
         echo drawForm($timeline_form, 'action.php');
         echo "esto es insert";

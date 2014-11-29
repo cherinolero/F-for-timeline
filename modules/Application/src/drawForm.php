@@ -13,7 +13,7 @@ function drawForm($formDefinition, $action, $method='post')
 
     $html.="<div id=\"formulario\">".chr(13)."<label class=\"titulo\" >TimeLine Form</label>";
     
-    $html.=chr(13)."<form action=\"".$action."\" method=\"".$method."\">";
+    $html.=chr(13)."<form action=\"../ffortimeline/".$action."\" method=\"".$method."\">";
     
     foreach ($formDefinition as $key => $value)
     {

@@ -52,7 +52,7 @@
         	cursor: pointer;
         }    
     </style>
-
+</head>
 <body>
 <?php
 include_once 'forms/timelineForm.php';
@@ -61,5 +61,4 @@ include_once 'drawForm.php';
 echo drawForm($timeline_form, 'action.php');
 ?>
 </body>
-</head>
 </html>
