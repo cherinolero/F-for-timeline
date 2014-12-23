@@ -40,7 +40,10 @@ class Mysql extends MysqlAbstract implements AdapterInterface
         return $usuarios;
     }
     
-    
+    public function getLastId()
+    {
+        return mysqli_insert_id($this->link);
+    }
     
     public function fetch($id)
     {
@@ -60,11 +63,13 @@ class Mysql extends MysqlAbstract implements AdapterInterface
         $sql = rtrim($sql,',');            
         
         $data =mysqli_query($this->link, $sql);
-        return $data;
+        
+        return $this->getLastId();
     }
     
     public function update($id, $data)
     {
+        $data = (array)$data;
         $sql = "UPDATE ".$this->getTable()." SET ";
         foreach ($data as $key => $value)
             $sql.= $key."='".$value."',";
@@ -80,9 +85,7 @@ class Mysql extends MysqlAbstract implements AdapterInterface
     public function delete($id)
     {
         $sql = "DELETE FROM ".$this->getTable()." 
-                WHERE ".key($id)."=".$id[key($id)];
-				
-        
+                WHERE ".key($id)."=".$id[key($id)];        
         $data =mysqli_query($this->link, $sql);
     }
 }

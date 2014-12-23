@@ -1,7 +1,6 @@
 <?php
 namespace Application\Services;
 
-use Application\Mapper\Users;
 use Application\Mapper;
 
 class Timelines
@@ -16,30 +15,69 @@ class Timelines
             return json_encode($timelines);
         }
         else 
-            $this->GetONE($id);
+            return $this->GetONE($id);
     }
     
     private function GetONE($id)
     {
-//         FILA 2
+            $mapper = new Mapper\Timelines();
+            $timelines = $mapper->getAdapter()->fetch($id);
+            return json_encode($timelines);
     }
     
-    public function POST($data)
+    public function POST($id,$data)
     {
-//         FILA 1
+        $timeline = [];
+        
+        // Comprobar que los datos no vienen vacíos
+        if (isset($data)) {
+        
+            $timelineData = json_decode($data);
+        
+            $mapper = new Mapper\Timelines();
+        
+            // Actualizas la BD
+            $timelines = $mapper->getAdapter()->create($timelineData);
+            
+            // Lees los datos actualizados de BD
+            $timeline = $mapper->getAdapter()
+                        ->fetch(array('idtimeline'=>$timelines));                        
+        }
+        
+        return json_encode($timeline);
     }
     
     public function PUT($id, $data)
     {
-//         FILA 3
+        $timeline = [];
+        
+        // Comprobar que los datos no vienen vacíos
+        if (isset($id) && isset($data)) {
+        
+            $timelineData = json_decode($data);
+        
+            $mapper = new Mapper\Timelines();
+        
+            // Actualizas la BD
+            $timelines = $mapper->getAdapter()->update($id, $timelineData);
+        
+            // Lees los datos actualizados de BD
+            $timeline = $mapper->getAdapter()->fetch($id);
+        }
+        
+        return json_encode($timeline);
     }
     
     public function DELETE($id)
     {
 
-        $mapper = new Mapper\Timelines();
+        $mapper = new Mapper\Timelines();               
         $timelines = $mapper->getAdapter()->delete($id);
         echo json_encode($id);
         
+    }
+    public function OPTIONS()
+    {
+        die ("OPTIONS Not implemented");
     }
 }

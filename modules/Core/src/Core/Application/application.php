@@ -2,13 +2,13 @@
 namespace Core\Application;
 
 
-use \Core\Module\model as module;
-use \Core\Router\model\parseUrl as getRequest;
+use \Core\Application\Module\model as module;
+use \Core\Application\Router\model\parseUrl as getRequest;
 
 class Application
 {        
     static $view;
-    static $config;
+    static $config; 
     static $controller;
     static $action;
     static $method;
@@ -19,8 +19,6 @@ class Application
         self::$config = module\moduleManager::getConfig($config);
         $request = getRequest::parseURL();
        
-        print_r ($request);
-        
         self::$method = $request['method'];
         self::$controller = $request['controller'];
         self::$action = $request['action'];
@@ -39,7 +37,7 @@ class Application
         $controller = new $controllerNameClass();
         $actionName = self::$action != '' ? self::$action : 'index';
         ob_start();
-            $controller->$actionName();
+            echo $controller->$actionName();            
         self::$view=ob_get_contents();
         ob_end_clean();
 

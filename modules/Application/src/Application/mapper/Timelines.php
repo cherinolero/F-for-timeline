@@ -14,17 +14,17 @@ class Timelines
 		$adapter = $config['adapter'];
 
         $adapter = new $adapter();        
-        $adapter->setTable('users');
+        $adapter->setTable('timelines');
         $adapter->connect($config);
         
         $this->setAdapter($adapter);
-        $dataUsuarios = $adapter->fetchAll();
+//         $data = $adapter->fetchAll();
         
-        echo "<pre>";
-        print_r($dataUsuarios);
-        echo "</pre>";
+// //         echo "<pre>";
+// //         print_r($data);
+// //         echo "</pre>";
         
-//         return $dataUsuarios;
+//         return $data;
     }
          
     /**
